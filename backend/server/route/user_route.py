@@ -34,3 +34,8 @@ def register():
     except Exception as e:
         return jsonify({'response': '%s: %s' % (str(Exception), e.args)}), 400
     return jsonify({'response': added_user}), 200
+
+
+@user_app.route('/users_list', methods=['GET'])
+def get_users_list():
+    pass
