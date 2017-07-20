@@ -1,4 +1,10 @@
 # -*- coding: UTF-8 -*-
+"""
+service for user
+
+Author: Bingwei Chen
+Date: 2017.07.20
+"""
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 

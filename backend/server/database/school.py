@@ -1,5 +1,10 @@
 # -*- coding: UTF-8 -*-
+"""
+db for school
 
+Author: Bingwei Chen
+Date: 2017.07.20
+"""
 from peewee import *
 from server.database.base_model import BaseModel
 

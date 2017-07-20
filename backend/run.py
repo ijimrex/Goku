@@ -1,5 +1,10 @@
 # -*- coding: UTF-8 -*-
+"""
+flask main function
 
+Author: Bingwei Chen
+Date: 2017.07.20
+"""
 from flask import Flask
 from flask_cors import CORS
 from peewee import *
@@ -19,6 +24,7 @@ app.register_blueprint(user_route.user_app)
 @app.before_request
 def before_request():
     database.connect()
+
 
 @app.after_request
 def after_request(response):

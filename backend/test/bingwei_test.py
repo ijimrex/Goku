@@ -3,7 +3,7 @@ import sys
 sys.path.append("../")
 
 from server.service import user_service
-from server.database import create_table
+# from server.database import create_table
 
 from server.database.user import initialize
 
