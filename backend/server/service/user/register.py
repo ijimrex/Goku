@@ -4,9 +4,9 @@
 
 @author:LeiJin
 
-@file: model_generator.py
+@file: register.py
 
-@time: 7/24/17 10:19 AM
+@time: 7/24/17 6:42 PM
 
 @desc:
 
