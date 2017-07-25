@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: history.py
+@file: history_model.py
 
 @time: 7/24/17 7:24 PM
 
@@ -12,6 +12,11 @@
 
 """
 from server.model.base_model import *
+from server.model.ebike_model import Ebike
+from server.model.flash_charge import FlashCharge
+from server.model.virtual_card_model import VirtualCard
+
+
 class History(BaseModel):
     ebike = ForeignKeyField(db_column='ebike_id', null=True, rel_model=Ebike, to_field='id')
     fc = ForeignKeyField(db_column='fc_id', null=True, rel_model=FlashCharge, to_field='id')

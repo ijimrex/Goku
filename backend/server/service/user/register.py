@@ -11,4 +11,6 @@
 @desc:
 
 """
-from server.model.user import *
+from server.model.user_model import User
+def register(username,name,school,student_id,phone,password):
+    None

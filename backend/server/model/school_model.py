@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: school.py
+@file: school_model.py
 
 @time: 7/24/17 7:11 PM
 
@@ -12,6 +12,9 @@
 
 """
 from server.model.base_model import *
+from server.model.store_model import Store
+
+
 class School(BaseModel):
     address = CharField(unique=True)
     id = CharField(primary_key=True)

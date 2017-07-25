@@ -4,14 +4,18 @@
 
 @author:LeiJin
 
-@file: makeAppointment.py
+@file: make_appointment_model.py
 
 @time: 7/24/17 7:25 PM
 
 @desc:
 
 """
+from server.model.appointment_model import Appointment
 from server.model.base_model import *
+from server.model.user_model import User
+
+
 class MakeAppointment(BaseModel):
     a = ForeignKeyField(db_column='a_id', rel_model=Appointment, to_field='id')
     date = DateTimeField()

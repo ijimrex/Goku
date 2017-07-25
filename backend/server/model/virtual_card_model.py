@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: virtualCard.py
+@file: virtual_card_model.py
 
 @time: 7/24/17 7:12 PM
 

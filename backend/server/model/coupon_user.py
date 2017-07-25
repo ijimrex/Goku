@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: couponUser.py
+@file: coupon_user.py
 
 @time: 7/24/17 7:26 PM
 
@@ -13,6 +13,10 @@
 """
 
 from server.model.base_model import *
+from server.model.coupon_model import Coupon
+from server.model.user_model import User
+
+
 class UserCoupon(BaseModel):
     coupon = ForeignKeyField(db_column='coupon_id', rel_model=Coupon, to_field='id')
     date = DateTimeField()

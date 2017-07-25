@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: coupon.py
+@file: coupon_model.py
 
 @time: 7/24/17 7:15 PM
 

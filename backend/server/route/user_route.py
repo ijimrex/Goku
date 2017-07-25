@@ -5,7 +5,7 @@ from flask import request
 import json
 from playhouse.shortcuts import model_to_dict, dict_to_model
 
-from server.service import user_service
+from server.service.user import user_basic
 PREFIX = '/user'
 
 user_app = Blueprint("user_app", __name__, url_prefix=PREFIX)
@@ -36,6 +36,8 @@ def register():
     return jsonify({'response': added_user}), 200
 
 
-@user_app.route('/users_list', methods=['GET'])
+@user_app.route('/user_info', methods=['GET'])
 def get_users_list():
     pass
+
+

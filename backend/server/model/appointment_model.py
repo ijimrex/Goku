@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: appointment.py
+@file: appointment_model.py
 
 @time: 7/24/17 7:13 PM
 
@@ -12,6 +12,7 @@
 
 """
 from server.model.base_model import *
+from server.model.user_model import *
 
 class Appointment(BaseModel):
     date = DateTimeField()

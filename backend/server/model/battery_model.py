@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: battery.py
+@file: battery_model.py
 
 @time: 7/24/17 7:14 PM
 

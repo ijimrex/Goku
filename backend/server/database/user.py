@@ -38,3 +38,5 @@ def initialize():
     database.connect()
     database.create_table(User, safe=True)
     database.close()
+
+

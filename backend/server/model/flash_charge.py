@@ -4,7 +4,7 @@
 
 @author:LeiJin
 
-@file: flashCharge.py
+@file: flash_charge.py
 
 @time: 7/24/17 7:23 PM
 
@@ -12,6 +12,10 @@
 
 """
 from server.model.base_model import *
+from server.model.battery_model import Battery
+from server.model.virtual_card_model import VirtualCard
+
+
 class FlashCharge(BaseModel):
     battery = ForeignKeyField(db_column='battery_id', null=True, rel_model=Battery, to_field='id')
     date = DateTimeField()
