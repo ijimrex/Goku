@@ -18,15 +18,48 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-class Model(BaseModel):
-    color = CharField(null=True)
-    id = CharField(primary_key=True)
-    introduction = CharField(null=True)
-    num_sold = IntegerField()
-    num_view = IntegerField()
-    pics = CharField(null=True)
-    price = FloatField()
-    type = CharField()
 
-    class Meta:
-        db_table = 'model'
+    def get_info(self,query):
+        '''
+        通用的get_info方法，获取表中的所有内容
+        :param query:
+        :return:
+        '''
+        if query!=None:
+            try:
+                return self.get(**query)
+            except:
+                return -1
+        else:
+            return 0
+
+    def add_record(self,query):
+        '''
+        增加一条新的记录
+        :param query:
+        :return:
+        '''
+        try:
+            self.create(**query)
+            return 1
+        except:
+            return -1
+
+    def delete_record(self,query):
+        '''
+        删除记录
+        :param query:where所指向的字段
+        :return:
+        '''
+        print()
+        try:
+            st = self.get(**query)
+            st.delete_instance()
+            return 1
+        except:
+            return 0
+
+
+
+
+

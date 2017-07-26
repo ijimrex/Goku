@@ -27,6 +27,7 @@ def get_users_list():
     for user in users:
         print(user.username)
 
+
 # def authenticate(user_ID, password):
 #     user = user_business.get_by_user_ID(user_ID)
 #     if user and check_password_hash(user.password, password):
