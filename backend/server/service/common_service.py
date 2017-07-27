@@ -13,6 +13,32 @@
 """
 from server.model.base_model import *
 def get_by_id(id,model):
+    '''
+    按照id查询一条记录的全部字段
+    :param id:
+    :param model:
+    :return:
+    '''
+
     query={}
     query['id']=id
     return model.get_info_one(query)
+
+def modify_all_by_id(id,para,model):
+    '''
+    通过id同时改变多个字段
+    :param id:
+    :param para:
+    :return:
+    '''
+    query={}
+    query['id']=id
+    if not 'id' in para:
+        query_send=dict(query,**para)
+    else:
+        query_send = para
+    result=get_by_id(id,model)
+    if result==0:
+        return  -1
+    else:
+        return model.update_record(query_send)

@@ -95,19 +95,24 @@ def delete_user_permentally(id):
         return user.delete_record(query)
 
 
-def modify_user_info(id,para):
-    query={}
-    query['id']=id
-    if not 'id' in para:
-        query_send=dict(query,**para)
-    else:
-        query_send = para
+def modify_user_one(keyword,id,value):
+    '''
+    改变已有的一个字段
+    :param keyword: 更新的字段
+    :param id:
+    :param operate:
+    :param num:
+    :return:
+    '''
     user = User()
     user_result=get_user_info(id)
-    if user_result==0:
-        return  -1
+    # print(user_result)
+    query=create_query(user_result.username,user_result.name, user_result.password, user_result.phone, user_result.status, user_result.vc_id, user_result.student_id, user_result.school_id, user_result.id)
+    if user_result != 0:
+        query[keyword]=value
+        return user.update_record(query)
     else:
-        return user.update_record(query_send)
+        return -1
 
 
 
@@ -145,6 +150,7 @@ def create_query(username, name, password, phone, status, vc_id, student_id, sch
 # print(delete_user_permentally('04'))
 # def update_user()
 # print(login({'username':'c'},'123'))
-# add_quert={'username':'abd', 'name':'Test', 'password':'12345', 'phone':1236, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':'01' }
+# add_quert={'username':'abd', 'name':'Test', 'password':'12345', 'phone':1237, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':'01' }
 # print(add_user('b','b','123',123,'001','001','04','001','04'))
-# print(modify_user_info('01',add_quert))
+# print(modify_all_by_id('01',add_quert,User()))
+# print(modify_user_one('status','01','2'))

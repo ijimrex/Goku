@@ -14,8 +14,11 @@
 """
 from server.model.bikemodel_model import *
 from server.service.common_service import *
+from server.model.user_model import *
+# from server.model.appointment_model import *
+# from server.model.make_appointment_model import *
 
-def get_ebikes(type,page,offset,order,flag):
+def get_ebikes(category,page,offset,order,flag):
     '''
     获取某类ebike，并按照特定的关键词排序
     :param type:
@@ -26,7 +29,7 @@ def get_ebikes(type,page,offset,order,flag):
     :return:
     '''
     ebike=BikeModel()
-    ebike_list=ebike.get_bikes_by_type(type,page,offset,order,flag)
+    ebike_list=ebike.get_bikes_by_type(category,page,offset,order,flag)
     return ebike_list
 
 def get_ebike_detail(id):
@@ -63,31 +66,38 @@ def modify_ebike(keyword,id,operate,value):
     query['num_sold'] = ebike_result.num_sold
     query['left'] = ebike_result.left
     query['category'] = ebike_result.category
-    e_keys=query.keys()
-    # print(e_keys)
+
     if ebike_result != 0:
-        for e_key in e_keys:
-            if operate=='add':
-                query[keyword]+=value
-                # print( query)
-            if operate=='minus':
-                query[keyword]+=value
-            if operate=='replace':
-                query[keyword]=value
-            return ebike.update_record(query)
-        else:
-            return -1
+        if operate=='add':
+            query[keyword]+=value
+            # print( query)
+        if operate=='minus':
+            query[keyword]+=value
+        if operate=='replace':
+            query[keyword]=value
+        return ebike.update_record(query)
+    else:
+        return -1
 
 def make_appointment(id):
+    '''
+    下单预约
+    :param id:车辆model编号
+    :return:
+    '''
+    user=User()
+
+
+
+    modify_ebike('left', id, 'minus', 1)
+
+
     ebike=BikeModel()
     ebike_result=get_by_id(id,ebike)
 
-print(modify_ebike('color','001','replace','white'))
 
 
-
-
-
+print(modify_ebike('color','001','replace','black'))
 # print (get_ebike_detail('001'))
 # print(g)
 # for x in g:

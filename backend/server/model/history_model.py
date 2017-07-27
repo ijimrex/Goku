@@ -23,6 +23,7 @@ class History(BaseModel):
     id = CharField(primary_key=True)
     time = DateTimeField()
     vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
+    operation=CharField()
 
     class Meta:
         db_table = 'history'
