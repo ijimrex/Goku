@@ -15,21 +15,31 @@
 
 """
 from server.model.user_model import User
+from server.service.common_service import *
 
 def get_user_info(id):
     '''
      查看用户的信息
     :return:
     '''
+
     user=User()
-    return user.get_info(id)
+    user_result=get_by_id(id,user)
+    if user_result==0 or user_result==-1:
+        return 0
+    else:
+        return user_result
+
 # print (get_info('001'))
 
-def get_user_list():
+def get_user_list(offset,limit):
     '''
     获取所用用户列表
     :return:
     '''
+    user=User()
+    return user.get_user_list(offset,limit)
+
 
 
 def add_user(username, name, password, phone, status, vc_id, student_id, school_id, id):
@@ -39,8 +49,8 @@ def add_user(username, name, password, phone, status, vc_id, student_id, school_
     :return:
     '''
     user=User()
-    user_result = user.get_info(username)
-    if user_result!=0 and user_result!=-1:
+    user_result = get_user_info(id)
+    if user_result!=0:
         return -1
     try:
         query=create_query(username, name, password, phone, status, vc_id, student_id, school_id, id)
@@ -58,7 +68,7 @@ def login(username,password):
     :return:success1/no username 0,-1/no password -2
     '''
     user=User()
-    user_result=user.get_info(username)
+    user_result=user.get_info_one(username)
     if user_result==0 or user_result==-1:
         return user_result
     else:
@@ -78,13 +88,27 @@ def delete_user_permentally(id):
     query={}
     query['id']=id
     user=User()
-    user_result=user.get_info(query)
+    user_result=user.get_info_one(id)
     if user_result==0 or user_result==-1:
         return user_result
     else:
         return user.delete_record(query)
 
-# def modify_user_info()
+
+def modify_user_info(id,para):
+    query={}
+    query['id']=id
+    if not 'id' in para:
+        query_send=dict(query,**para)
+    else:
+        query_send = para
+    user = User()
+    user_result=get_user_info(id)
+    if user_result==0:
+        return  -1
+    else:
+        return user.update_record(query_send)
+
 
 
 def create_query(username, name, password, phone, status, vc_id, student_id, school_id, id):
@@ -114,9 +138,13 @@ def create_query(username, name, password, phone, status, vc_id, student_id, sch
     return query
 
 
+
+# print(get_user_list(1,3)[0].name)
+
+# print(get_user_info('01').name)
 # print(delete_user_permentally('04'))
 # def update_user()
 # print(login({'username':'c'},'123'))
-# add_quert={'username':'abc', 'name':'Test', 'password':'12345', 'phone':123, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':1 }
+# add_quert={'username':'abd', 'name':'Test', 'password':'12345', 'phone':1236, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':'01' }
 # print(add_user('b','b','123',123,'001','001','04','001','04'))
-
+# print(modify_user_info('01',add_quert))

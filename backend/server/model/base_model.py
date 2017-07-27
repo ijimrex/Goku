@@ -19,12 +19,13 @@ class BaseModel(Model):
         database = database
 
 
-    def get_info(self,query):
+    def get_info_one(self,query):
         '''
         通用的get_info方法，获取表中的所有内容
         :param query:
         :return:
         '''
+
         if query!=None:
             try:
                 return self.get(**query)
@@ -32,6 +33,20 @@ class BaseModel(Model):
                 return -1
         else:
             return 0
+
+    def get_info_several(self,offset,limit):
+        '''
+        分页查询多条记录
+        :param amount:limit
+        :param page:offset
+        :return:查到的记录
+        '''
+        limit=int(limit)
+        offset=int(offset)
+        try:
+            return self.select().paginate(offset,limit)
+        except:
+            return -1
 
     def add_record(self,query):
         '''
@@ -57,7 +72,7 @@ class BaseModel(Model):
             st.delete_instance()
             return 1
         except:
-            return 0
+            return -1
 
 
 

@@ -16,13 +16,20 @@ def register():
     data = request.get_json()
     username = data['username']
     password = data['password']
-    data.pop('username')
-    data.pop('password')
+    id=data['id']
+    phone=data['phone']
+    status=data['status']
+    vc_id=data['vc_id']
+    student_id=data['student_id']
+    school_id=data['school_id']
+    name=data['name']
+    # data.pop('username')
+    # data.pop('password')
+
     if username is None or password is None:
         return jsonify({'response': 'invalid user or password'}), 400
     try:
-        added_user = user_service.add(username, password, data)
-
+        added_user = user_basic.add_user(data)
         print("added_user", added_user)
         json_data = json.dumps(model_to_dict(added_user))
         print("json_data", json_data)

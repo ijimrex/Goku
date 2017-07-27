@@ -30,14 +30,14 @@ class User(BaseModel):
         db_table = 'user'
 
 
-    def get_user_list(self,page,limit):
+    def get_user_list(self,offset,limit):
         '''
         显示用户列表，for admin
         :param page: 分几页
         :param limit: 每页多少条
         :return:diclist 显示用户基本信息
         '''
-        None
+        return self.select().paginate(offset,limit)
 
     def update_record(self,query):
         '''
@@ -54,28 +54,18 @@ class User(BaseModel):
 
 
 
-
-
-
-
-
-
-
-
-
-
-    #
-    # def delete_user(self,id):
-    #     '''
-    #     按照id删除用户
-    #     :param id:
-    #     :return:删除的条数
-    #     '''
-    #     try:
-    #         user = self.get(User.id == id)
-    #         return user.delete_instance()
-    #     except:
-    #         return -1
+#
+# def delete_user(self,id):
+#     '''
+#     按照id删除用户
+#     :param id:
+#     :return:删除的条数
+#     '''
+#     try:
+#         user = self.get(User.id == id)
+#         return user.delete_instance()
+#     except:
+#         return -1
 # def add_user(self, username, name, password, phone, status, vc_id, student_id, school_id, id):
 #     try:
 #         temp = User(username=username, name=name, password=password, status=status, vc_id=vc_id, student_id=student_id,
@@ -85,11 +75,13 @@ class User(BaseModel):
 #     except:
 #         return -1
 
-m=User()
+# m=User()
 
-add_quert={'username':'abd', 'name':'Test', 'password':'12345', 'phone':1235, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':'01' }
+# add_quert={'username':'abd', 'name':'Test', 'password':'12345', 'phone':1235, 'status':'1', 'vc_id':'001', 'student_id':'012', 'school_id':'001','id':'01' }
 # print(m.add(add_quert))
-m.update_record(add_quert)
+# m.update_record(add_quert)
 # m.add_user('c','b','123','1','001','001','07','001',915)
-
-# print(m.get_info({'id':'01'}))
+# g=m.get_info_several(1,10)
+# print(g)
+# for x in g:
+#     print(x.name)
