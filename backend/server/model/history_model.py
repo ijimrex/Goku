@@ -11,21 +11,41 @@
 @desc:
 
 """
+from datetime import *
+
+
+
+from server.database.user import User
 from server.model.base_model import *
+from server.model.battery_model import Battery
 from server.model.bikemodel_model import BikeModel
 from server.model.ebike_model import Ebike
-from server.model.flash_charge import FlashCharge
-from server.model.virtual_card_model import VirtualCard
+
 
 
 class History(BaseModel):
-    ebike = ForeignKeyField(db_column='ebike_id', null=True, rel_model=Ebike, to_field='id')
-    fc = ForeignKeyField(db_column='fc_id', null=True, rel_model=FlashCharge, to_field='id')
+    battery_id = ForeignKeyField(db_column='battery_id', null=True, rel_model=Battery, to_field='id')
+    bike_model_id = ForeignKeyField(db_column='bike_model_id', null=True, rel_model=Ebike, to_field='id')
+    ebike_id = CharField(db_column='ebike_id', null=True)
     id = CharField(primary_key=True)
+    operation = CharField()
     time = DateTimeField()
-    vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
-    operation=CharField()
-    model_id = ForeignKeyField(db_column='model_id', null=True, rel_model=BikeModel, to_field='id')
+    user_id = ForeignKeyField(db_column='user_id', null=True, rel_model=User, related_name='user_user_set', to_field='id')
 
     class Meta:
         db_table = 'history'
+
+time_now=datetime.now()
+m=History()
+# print( time_now)
+
+query3={}#history
+query3['id']='226'
+query3['bike_model_id']='001'
+query3['user_id']='03'
+query3['time']=time_now
+query3['operation']='make_appointment'
+query3['battery_id']='001'
+query3['ebike_id']='001'
+# print( query3)
+m.add_record(query3)

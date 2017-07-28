@@ -22,6 +22,7 @@ def get_by_id(id,model):
 
     query={}
     query['id']=id
+    # print (model.get_info_one(query))
     return model.get_info_one(query)
 
 def modify_all_by_id(id,para,model):
@@ -43,4 +44,4 @@ def modify_all_by_id(id,para,model):
     else:
         return model.update_record(query_send)
 def create_id(length):
-    return '003'
+    return '002'

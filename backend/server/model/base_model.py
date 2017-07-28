@@ -54,11 +54,13 @@ class BaseModel(Model):
         :param query:
         :return:
         '''
-        try:
-            self.create(**query)
-            return 1
-        except:
-            return -1
+        # try:
+        print( query)
+        self.create(**query)
+
+        #     return 1
+        # except:
+        #     return -1
 
     def delete_record(self,query):
         '''

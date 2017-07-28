@@ -13,15 +13,15 @@
 """
 from server.model.base_model import *
 from server.model.battery_model import Battery
-from server.model.virtual_card_model import VirtualCard
+from  server.model.user_model import User
 
 
 class FlashCharge(BaseModel):
-    battery = ForeignKeyField(db_column='battery_id', null=True, rel_model=Battery, to_field='id')
+    battery_id = ForeignKeyField(db_column='battery_id', null=True, rel_model=Battery, to_field='id')
     date = DateTimeField()
     id = CharField(primary_key=True)
     status = CharField()
-    vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
+    user_id = ForeignKeyField(db_column='user_id', rel_model=User, to_field='id')
 
     class Meta:
         db_table = 'flash_charge'
