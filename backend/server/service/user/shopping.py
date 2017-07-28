@@ -12,11 +12,15 @@
 用户在商场中的操作
 
 """
+from server.database.db_map import History
+from server.model.appointment_model import Appointment
 from server.model.bikemodel_model import *
+from server.model.make_appointment_model import MakeAppointment
+from server.service.user.user_basic import *
 from server.service.common_service import *
-from server.model.user_model import *
-# from server.model.appointment_model import *
-# from server.model.make_appointment_model import *
+from datetime import *
+
+
 
 def get_ebikes(category,page,offset,order,flag):
     '''
@@ -33,7 +37,11 @@ def get_ebikes(category,page,offset,order,flag):
     return ebike_list
 
 def get_ebike_detail(id):
-
+    '''
+    查看一个model的车的详情
+    :param id:
+    :return:
+    '''
     ebike=BikeModel()
     ebike_result=get_by_id(id,ebike)
     return ebike_result
@@ -79,25 +87,58 @@ def modify_ebike(keyword,id,operate,value):
     else:
         return -1
 
-def make_appointment(id):
+def create_appointment(ebike_id,user_id,note,appointment_type):
     '''
     下单预约
     :param id:车辆model编号
     :return:
     '''
+    # ebike = ForeignKeyField(db_column='ebike_id', null=True, rel_model=Ebike, to_field='id')
+    # fc = ForeignKeyField(db_column='fc_id', null=True, rel_model=FlashCharge, to_field='id')
+    # id = CharField(primary_key=True)
+    # time = DateTimeField()
+    # vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
+    # operation=CharField()
+    # model_id = ForeignKeyField(db_column='model_id', null=True, rel_model=BikeModel, to_field='id')
+
+
+
+
+    appointment_id=create_id(1)
+    time_now=datetime.now()
+    query={}#ebike
+    query['user_id']=user_id
+    query['model_id']=ebike_id
+    query['id']=appointment_id
+    query['note']=note
+    query['type']=appointment_type
+    query['date']=time_now
+    query2={}#appointment
+    query2['u']=user_id
+    query2['a']=appointment_id
+    query2['date']=time_now
+    # query3={}#history
+    # query3['id']=create_id()
+    # query3['']
     user=User()
-
-
-
-    modify_ebike('left', id, 'minus', 1)
-
-
+    appointment=Appointment()
+    appointment_made=MakeAppointment()
+    history=History()
     ebike=BikeModel()
-    ebike_result=get_by_id(id,ebike)
-
-
-
-print(modify_ebike('color','001','replace','black'))
+    ebike_result=get_by_id(ebike_id,ebike)
+    if get_by_id(user_id,user).status=='1':
+        if ebike_result.left==0:
+            return 2
+        else:
+            modify_ebike('left', ebike_id, 'minus', 1)
+            modify_user_one('status',user_id,'2')
+            appointment.add_record(query)
+            appointment_made.add_record(query2)
+        return 1
+    else:
+        return 0
+# print(create_appointment('001','01','haha','1'))
+# print(modify_ebike('color','001','replace','black'))
 # print (get_ebike_detail('001'))
 # print(g)
 # for x in g:

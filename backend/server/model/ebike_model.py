@@ -12,12 +12,13 @@
 
 """
 from server.model.base_model import *
+from server.model.bikemodel_model import BikeModel
 from server.model.virtual_card_model import VirtualCard
 
 
 class Ebike(BaseModel):
     id = CharField(primary_key=True)
-    model_id = ForeignKeyField(db_column='model_id', rel_model=Model, to_field='id')
+    model_id = ForeignKeyField(db_column='model_id', rel_model=BikeModel, to_field='id')
     state = CharField()
     vcid = ForeignKeyField(db_column='vcid', null=True, rel_model=VirtualCard, to_field='id')
 

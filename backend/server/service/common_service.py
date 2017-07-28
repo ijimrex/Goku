@@ -42,3 +42,5 @@ def modify_all_by_id(id,para,model):
         return  -1
     else:
         return model.update_record(query_send)
+def create_id(length):
+    return '003'

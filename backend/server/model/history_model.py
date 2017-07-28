@@ -12,6 +12,7 @@
 
 """
 from server.model.base_model import *
+from server.model.bikemodel_model import BikeModel
 from server.model.ebike_model import Ebike
 from server.model.flash_charge import FlashCharge
 from server.model.virtual_card_model import VirtualCard
@@ -24,6 +25,7 @@ class History(BaseModel):
     time = DateTimeField()
     vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
     operation=CharField()
+    model_id = ForeignKeyField(db_column='model_id', null=True, rel_model=BikeModel, to_field='id')
 
     class Meta:
         db_table = 'history'
