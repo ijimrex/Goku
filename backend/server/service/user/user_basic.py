@@ -143,10 +143,11 @@ def create_query(username, name, password, phone, status, vc_id, student_id, sch
     return query
 
 
+# def
 
 # print(get_user_list(1,3)[0].name)
 
-print(get_user_info('01').name)
+# print(get_user_info('01').name)
 # print(delete_user_permentally('04'))
 # def update_user()
 # print(login({'username':'c'},'123'))

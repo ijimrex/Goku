@@ -27,7 +27,7 @@ class BikeModel(BaseModel):
     category=CharField()
 
     class Meta:
-        db_table = 'model'
+        db_table = 'bike_model'
 
     def get_bikes_by_type(self,type,amount,page,order,flag):
         '''

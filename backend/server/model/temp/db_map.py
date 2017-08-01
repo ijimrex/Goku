@@ -1,6 +1,6 @@
 from peewee import *
 
-database = MySQLDatabase('Goku', **{'host': '127.0.0.1', 'port': 3306, 'user': 'root', 'password': '123456'})
+database = MySQLDatabase('Goku', **{'host': '127.0.0.1', 'password': '123456', 'port': 3306, 'user': 'root'})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass
@@ -9,10 +9,12 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-class Model(BaseModel):
+class BikeModel(BaseModel):
+    category = CharField()
     color = CharField(null=True)
     id = CharField(primary_key=True)
     introduction = CharField(null=True)
+    left = IntegerField()
     num_sold = IntegerField()
     num_view = IntegerField()
     pics = CharField(null=True)
@@ -20,7 +22,7 @@ class Model(BaseModel):
     type = CharField()
 
     class Meta:
-        db_table = 'model'
+        db_table = 'bike_model'
 
 class Store(BaseModel):
     address = CharField(unique=True)
@@ -50,10 +52,12 @@ class VirtualCard(BaseModel):
 class User(BaseModel):
     id = CharField(primary_key=True)
     name = CharField()
+    password = CharField()
     phone = IntegerField(null=True)
     school = ForeignKeyField(db_column='school_id', rel_model=School, to_field='id')
     status = CharField()
     student = CharField(db_column='student_id')
+    username = CharField(unique=True)
     vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
 
     class Meta:
@@ -62,7 +66,7 @@ class User(BaseModel):
 class Appointment(BaseModel):
     date = DateTimeField()
     id = CharField(primary_key=True)
-    model = ForeignKeyField(db_column='model_id', null=True, rel_model=Model, to_field='id')
+    model = ForeignKeyField(db_column='model_id', null=True, rel_model=BikeModel, to_field='id')
     note = CharField(null=True)
     type = CharField(null=True)
     user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
@@ -101,9 +105,9 @@ class CustomerService(BaseModel):
 
 class Ebike(BaseModel):
     id = CharField(primary_key=True)
-    model = ForeignKeyField(db_column='model_id', rel_model=Model, to_field='id')
+    model = ForeignKeyField(db_column='model_id', rel_model=BikeModel, to_field='id')
     state = CharField()
-    vcid = ForeignKeyField(db_column='vcid', null=True, rel_model=VirtualCard, to_field='id')
+    user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
 
     class Meta:
         db_table = 'ebike'
@@ -113,17 +117,19 @@ class FlashCharge(BaseModel):
     date = DateTimeField()
     id = CharField(primary_key=True)
     status = CharField()
-    vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
+    user = ForeignKeyField(db_column='user_id', rel_model=User, to_field='id')
 
     class Meta:
         db_table = 'flash_charge'
 
 class History(BaseModel):
+    battery = ForeignKeyField(db_column='battery_id', null=True, rel_model=Battery, to_field='id')
+    bike_model = ForeignKeyField(db_column='bike_model_id', null=True, rel_model=BikeModel, to_field='id')
     ebike = ForeignKeyField(db_column='ebike_id', null=True, rel_model=Ebike, to_field='id')
-    fc = ForeignKeyField(db_column='fc_id', null=True, rel_model=FlashCharge, to_field='id')
     id = CharField(primary_key=True)
+    operation = CharField()
     time = DateTimeField()
-    vc = ForeignKeyField(db_column='vc_id', null=True, rel_model=VirtualCard, to_field='id')
+    user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
 
     class Meta:
         db_table = 'history'

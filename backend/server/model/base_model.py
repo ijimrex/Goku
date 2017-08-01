@@ -25,14 +25,14 @@ class BaseModel(Model):
         :param query:
         :return:
         '''
-
-        if query!=None:
-            try:
-                return self.get(**query)
-            except:
-                return -1
-        else:
-            return 0
+        # print( query)
+        # if query!=None:
+        #     try:
+        return self.get(**query)
+        #     except:
+        #         return -1
+        # else:
+        #     return 0
 
     def get_info_several(self,offset,limit):
         '''
@@ -55,7 +55,7 @@ class BaseModel(Model):
         :return:
         '''
         # try:
-        print( query)
+        # print( query)
         self.create(**query)
 
         #     return 1
@@ -68,7 +68,6 @@ class BaseModel(Model):
         :param query:where所指向的字段
         :return:
         '''
-        print()
         try:
             st = self.get(**query)
             st.delete_instance()

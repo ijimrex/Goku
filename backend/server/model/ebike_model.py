@@ -11,7 +11,7 @@
 @desc:
 
 """
-from server.database.user import User
+from server.model.user_model import User
 from server.model.base_model import *
 from server.model.bikemodel_model import BikeModel
 

@@ -22,6 +22,7 @@ class Appointment(BaseModel):
     note = CharField(null=True)
     type = CharField(null=True)
     user_id = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
+    status = CharField()
 
     class Meta:
         db_table = 'appointment'

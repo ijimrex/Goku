@@ -89,7 +89,8 @@ def modify_ebike_model(keyword,id,operate,value):
 
 def create_appointment(ebike_model_id,user_id,note,appointment_type):
     '''
-
+    增加预约信息
+    修改user bikemodel ebike appointment makeappointment表
     :param ebike_model_id:模型
     :param user_id:
     :param note:
@@ -99,14 +100,15 @@ def create_appointment(ebike_model_id,user_id,note,appointment_type):
 
     appointment_id=create_id(1)
     time_now=datetime.now()
-    query={}#ebike
+    query={}#appointment
     query['user_id']=user_id
     query['model_id']=ebike_model_id
     query['id']=appointment_id
     query['note']=note
     query['type']=appointment_type
     query['date']=time_now
-    query2={}#appointment
+    query['status']=0
+    query2={}#make appointment
     query2['u']=user_id
     query2['a']=appointment_id
     query2['date']=time_now
@@ -116,21 +118,17 @@ def create_appointment(ebike_model_id,user_id,note,appointment_type):
     query3['user_id']=user_id
     query3['time']=time_now
     query3['operation']='make_appointment'
-    query3['battery_id']=''
-    query3['ebike_id']=''
-    query3['fc_id']=''
-    query3['fc_id_id']=''
-
-
-
+    query3['battery_id']='001'
+    query3['ebike_id']='001'
+    query3['fc_id']='001'
     user=User()
     appointment=Appointment()
     appointment_made=MakeAppointment()
     history=History()
     ebike_model=BikeModel()
     ebike_model_result=get_by_id(ebike_model_id,ebike_model)
-    if get_by_id(user_id,user).status=='1':
-        if ebike_model_result.left==0:
+    if get_by_id(user_id,user).status=='1':#是否可约
+        if ebike_model_result.left==0:#车辆是否数量大于0
             return 2
         else:
             modify_ebike_model('left', ebike_model_id, 'minus', 1)
@@ -141,7 +139,18 @@ def create_appointment(ebike_model_id,user_id,note,appointment_type):
         return 1
     else:
         return 0
-print(create_appointment('001','03','yoyo','1'))
+
+def pick_bike(user_id,bike_id):
+    '''
+    提车
+    :param id:电动车编号
+    :return:
+    '''
+
+
+
+
+print(create_appointment('001','01','yoyo','1'))
 # print(modify_ebike_model('color','001','replace','black'))
 # print (get_ebike_model_detail('001').color)
 # print(g)
