@@ -25,3 +25,15 @@ class FlashCharge(BaseModel):
 
     class Meta:
         db_table = 'flash_charge'
+
+    def update_record(self,query):
+        '''
+        :param query:
+        :return:
+        '''
+        try:
+            temp = FlashCharge(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

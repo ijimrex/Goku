@@ -26,3 +26,16 @@ class Appointment(BaseModel):
 
     class Meta:
         db_table = 'appointment'
+
+    def update_record(self,query):
+        '''
+        修改记录
+        :param query:
+        :return:
+        '''
+        # try:
+        temp = Appointment(**query)
+        temp.save()
+        #     return 1
+        # except:
+        #     return -1

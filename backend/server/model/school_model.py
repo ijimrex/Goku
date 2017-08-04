@@ -23,3 +23,16 @@ class School(BaseModel):
 
     class Meta:
         db_table = 'school'
+
+    def update_record(self,query):
+        '''
+        修改记录
+        :param query:
+        :return:
+        '''
+        try:
+            temp = School(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

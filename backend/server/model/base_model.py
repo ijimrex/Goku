@@ -55,7 +55,7 @@ class BaseModel(Model):
         :return:
         '''
         # try:
-        # print( query)
+        print( query)
         self.create(**query)
 
         #     return 1

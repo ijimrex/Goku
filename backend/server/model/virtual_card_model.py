@@ -19,3 +19,16 @@ class VirtualCard(BaseModel):
 
     class Meta:
         db_table = 'virtual_card'
+
+    def update_record(self,query):
+        '''
+        修改记录
+        :param query:
+        :return:
+        '''
+        try:
+            temp = VirtualCard(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

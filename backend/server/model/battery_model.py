@@ -20,3 +20,15 @@ class Battery(BaseModel):
 
     class Meta:
         db_table = 'battery'
+
+    def update_record(self,query):
+        '''
+        :param query:
+        :return:
+        '''
+        try:
+            temp = Battery(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

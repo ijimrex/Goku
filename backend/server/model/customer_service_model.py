@@ -21,3 +21,15 @@ class CustomerService(BaseModel):
 
     class Meta:
         db_table = 'customer_service'
+
+    def update_record(self,query):
+        '''
+        :param query:
+        :return:
+        '''
+        try:
+            temp = CustomerService(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

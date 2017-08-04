@@ -13,6 +13,7 @@
 """
 from server.model.base_model import *
 
+
 class Store(BaseModel):
     address = CharField(unique=True)
     id = CharField(primary_key=True)
@@ -20,3 +21,16 @@ class Store(BaseModel):
 
     class Meta:
         db_table = 'store'
+
+    def update_record(self, query):
+        '''
+        修改记录
+        :param query:
+        :return:
+        '''
+        try:
+            temp = Store(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

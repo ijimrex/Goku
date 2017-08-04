@@ -28,3 +28,15 @@ class UserCoupon(BaseModel):
             (('user', 'coupon'), True),
         )
         primary_key = CompositeKey('coupon', 'user')
+
+    def update_record(self,query):
+        '''
+        :param query:
+        :return:
+        '''
+        try:
+            temp = UserCoupon(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

@@ -68,6 +68,7 @@ class Appointment(BaseModel):
     id = CharField(primary_key=True)
     model = ForeignKeyField(db_column='model_id', null=True, rel_model=BikeModel, to_field='id')
     note = CharField(null=True)
+    status = CharField()
     type = CharField(null=True)
     user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
 
@@ -104,9 +105,10 @@ class CustomerService(BaseModel):
         db_table = 'customer_service'
 
 class Ebike(BaseModel):
+    date = DateTimeField(null=True)
     id = CharField(primary_key=True)
     model = ForeignKeyField(db_column='model_id', rel_model=BikeModel, to_field='id')
-    state = CharField()
+    status = CharField()
     user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
 
     class Meta:
@@ -129,7 +131,7 @@ class History(BaseModel):
     id = CharField(primary_key=True)
     operation = CharField()
     time = DateTimeField()
-    user = ForeignKeyField(db_column='user_id', null=True, rel_model=User, to_field='id')
+    user = ForeignKeyField(db_column='user_id', rel_model=User, to_field='id')
 
     class Meta:
         db_table = 'history'
@@ -137,6 +139,7 @@ class History(BaseModel):
 class MakeAppointment(BaseModel):
     a = ForeignKeyField(db_column='a_id', rel_model=Appointment, to_field='id')
     date = DateTimeField()
+    status = CharField()
     u = ForeignKeyField(db_column='u_id', rel_model=User, to_field='id')
 
     class Meta:

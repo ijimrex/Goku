@@ -19,6 +19,7 @@ from server.model.user_model import User
 class MakeAppointment(BaseModel):
     a = ForeignKeyField(db_column='a_id', rel_model=Appointment, to_field='id')
     date = DateTimeField()
+    status = CharField()
     u = ForeignKeyField(db_column='u_id', rel_model=User, to_field='id')
 
     class Meta:
@@ -27,3 +28,16 @@ class MakeAppointment(BaseModel):
             (('a', 'u'), True),
         )
         primary_key = CompositeKey('a', 'u')
+
+    def update_record(self, query):
+        '''
+        修改记录
+        :param query:
+        :return:
+        '''
+        try:
+            temp = MakeAppointment(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

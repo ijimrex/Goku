@@ -24,3 +24,15 @@ class Coupon(BaseModel):
 
     class Meta:
         db_table = 'coupon'
+
+    def update_record(self,query):
+        '''
+        :param query:
+        :return:
+        '''
+        try:
+            temp = Coupon(**query)
+            temp.save()
+            return 1
+        except:
+            return -1

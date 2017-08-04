@@ -17,63 +17,73 @@
 from server.model.user_model import User
 from server.service.common_service import *
 
+
 def get_user_info(id):
     '''
      查看用户的信息
     :return:
     '''
 
-    user=User()
-    user_result=get_by_id(id,user)
-    if user_result==0 or user_result==-1:
+    user = User()
+    user_result = get_by_id(id, user)
+    if user_result == 0 or user_result == -1:
         return 0
     else:
         return user_result
 
+
 # print (get_info('001'))
 
-def get_user_list(offset,limit):
+def get_user_list(offset, limit):
     '''
     获取所用用户列表
     :return:
     '''
-    user=User()
-    return user.get_user_list(offset,limit)
-
+    user = User()
+    return user.get_user_list(offset, limit)
 
 
 def add_user(username, name, password, phone, status, vc_id, student_id, school_id, id):
     '''
-    新增用户
-    :param s:
+    增加一个用户
+    :param username:
+    :param name:
+    :param password:
+    :param phone:
+    :param status:
+    :param vc_id:虚拟卡的id
+    :param student_id:学号
+    :param school_id:
+    :param id:
     :return:
     '''
-    user=User()
+
+    user = User()
     user_result = get_user_info(id)
-    if user_result!=0:
+    if user_result != 0:
         return -1
     try:
-        query=create_query(username, name, password, phone, status, vc_id, student_id, school_id, id)
+        query = create_query(username, name, password, phone, status, vc_id, student_id, school_id, id)
         user.add_record(query)
         return 1
     except:
         return 0
 
 
-def login(username,password):
+def login(username, password):
     '''
     登录
     :param username:
     :param password:
     :return:success1/no username 0,-1/no password -2
     '''
-    user=User()
-    user_result=user.get_info_one(username)
-    if user_result==0 or user_result==-1:
+    user = User()
+    user_result = user.get_info_one(username)
+    if user_result == 0 or user_result == -1:
         return user_result
     else:
-        psw=user_result.password
-        if psw==password:
+        psw = user_result.password
+        if psw == password:
             return 1
         else:
             return -2
@@ -85,39 +95,40 @@ def delete_user_permentally(id):
     :param id:
     :return:
     '''
-    query={}
-    query['id']=id
-    user=User()
-    user_result=user.get_info_one(id)
-    if user_result==0 or user_result==-1:
+    query = {}
+    query['id'] = id
+    user = User()
+    user_result = user.get_info_one(id)
+    if user_result == 0 or user_result == -1:
         return user_result
     else:
         return user.delete_record(query)
 
 
-def modify_user_one(keyword,id,value):
+def modify_user_one(keyword, id, value):
     '''
     改变已有的一个字段
     :param keyword: 更新的字段
-    :param id:
-    :param operate:
-    :param num:
+    :param id:用户id
+    :param num:更新的值
     :return:
     '''
     user = User()
-    user_result=get_user_info(id)
+    user_result = get_user_info(id)
     # print(user_result)
-    query=create_query(user_result.username,user_result.name, user_result.password, user_result.phone, user_result.status, user_result.vc_id, user_result.student_id, user_result.school_id, user_result.id)
+    query = create_query(user_result.username, user_result.name, user_result.password, user_result.phone,
+                         user_result.status, user_result.vc_id, user_result.student_id, user_result.school_id,
+                         user_result.id)
     if user_result != 0:
-        query[keyword]=value
+        query[keyword] = value
         return user.update_record(query)
     else:
         return -1
 
 
-
 def create_query(username, name, password, phone, status, vc_id, student_id, school_id, id):
     '''
+    为modify_user_one()函数组合query
     构建查询的字典
     :param username:
     :param name:
@@ -141,7 +152,6 @@ def create_query(username, name, password, phone, status, vc_id, student_id, sch
     query['school_id'] = school_id
     query['id'] = id
     return query
-
 
 # def
 
